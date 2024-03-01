@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    td {
+      border: 1px solid black;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      cursor: pointer;
+    }
+    label {
+      margin-right: 10px;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+  </style>
+</head>
+<body>
+
+<label for="rows">Rows: </label>
+<input type="number" id="rows" value="5" min="1"><br>
+
+<label for="columns">Columns: </label>
+<input type="number" id="columns" value="5" min="1"><br>
+
+<button onclick="createTable()" style="background-color: lightgreen;">Create Table</button><br><br>
+<button onclick="changeColorPink()" style="background-color: pink;">Pink</button>
+<button onclick="changeColorBlack()" style="background-color: gray;">Black</button>
+<button onclick="changeColorWhite()" style="background-color: aliceblue;">Eraser</button>
+
+<script>
+  var currentColor = 'black';
+
+  function changeColorPink(){
+    currentColor='#AA336A';
+  }
+  function changeColorBlack(){
+    currentColor='black'
+  }
+  function changeColorWhite()
+  {
+    currentColor='white'
+  }
+
+  function createTable() {
+    const rows = parseInt(document.getElementById('rows').value);
+    const columns = parseInt(document.getElementById('columns').value);
+
+    // Remove existing table, if any
+    const existingTable = document.querySelector('table');
+    if (existingTable) {
+      existingTable.remove();
+    }
+
+    const table = document.createElement('table');
+
+    for (let i = 0; i < rows; i++) {
+      const row = table.insertRow();
+
+      for (let j = 0; j < columns; j++) {
+        const cell = row.insertCell();
+        cell.onclick = function() {
+          changeColor(cell);
+        };
+      }
+    }
+
+    document.body.appendChild(table);
+  }
+
+  function changeColor(cell) {
+    cell.style.backgroundColor = currentColor;
+  }
+
+  function toggleColor() {
+    currentColor = currentColor === 'black' ? 'white' : 'black';
+  }
+
+  // Initial table creation
+  createTable();
+</script>
+
+</body>
+</html>
